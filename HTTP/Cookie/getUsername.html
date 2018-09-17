@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>记住上次的用户名</title>
+</head>
+
+<body>
+    <form id="form1" action="https://www.baidu.com/index.php?tn=monline_3_dg">
+        用户名<input type="text" name="user"><br>
+        密码<input type="password" name="pass"><br>
+        <input type="submit" value="登录">
+    </form>
+
+    <script>
+
+        function setCookie(name, value, iDay) {
+            var oDate = new Date();
+            oDate.setDate(oDate.getDate() + iDay);
+
+            document.cookie = name + "=" + value + ";expires=" + oDate;
+        }
+    
+        function getCookie(name) {  // 比如我要从cookie中查找用户名 name = "username"
+            var cookie = document.cookie;
+            var arr = cookie.split("; ");
+            for (var i = 0; i < arr.length; i++) {
+                var arr2 = arr[i].split("=");
+                if (arr2[0] == name) {
+                    return arr2[1];
+                }
+            }
+            return ' '; //每找到
+        }
+
+        function removeCookie(name) {
+            setCookie(name, 1, -1); // -1天过期，就是昨天过期。
+        }
+
+        // 登录的时候，把用户名存入cookie
+        // onload的时候，从cookie中读取用户名
+        window.onload() = function () {
+            var oForm = document.getElementById("form1");
+            var oUser = document.getElementsByName("user")[0];
+
+            oForm.onsubmit() = function () {
+                setCookie("user",oUser.value,14); // 存
+            }
+            oUser.value = getCookie("user");   
+        }
+    </script>
+</body>
+
+</html>

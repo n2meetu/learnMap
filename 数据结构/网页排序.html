@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ul {
+            height: 200px;
+            display: inline-block;
+        }
+
+        li {
+            width: 30px;
+            border: 1px solid #000;
+            display: inline-block;
+            vertical-align: bottom;
+            margin: 0 10px 0 0;
+            text-align: center;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="arr">
+    <ul id="ul">
+        <li>1</li>
+        <li>3</li>
+        <li>5</li>
+        <li>4</li>
+        <li>2</li>
+        <li>7</li>
+        <li>8</li>
+        <li>1</li>
+        <li>9</li>
+        <li>3</li>
+    </ul>
+</div>
+
+<script>
+    let oUl = document.getElementById('ul');
+    let oLi = document.getElementsByTagName('li');
+    // 初始化
+    let arr = [];
+    for (let v of oLi) {
+        arr.push(v.innerText);
+    }
+    let max = Math.max.apply(arr, arr);
+    for (let v of oLi) {
+        let height = (v.innerText / max) * 200;
+        v.style.height = height + 'px';
+    }
+
+    // 排序
+    let min = null;
+    let n = 0;
+    for (let i = 0; i < oLi.length - 1; i++) {
+        min = i;
+        n++;
+        console.log(oUl);
+        time(oLi[min], '#f00', n);
+        for (let j = i + 1; j < oLi.length; j++) {
+            n++;
+            time(oLi[j], '#ccc', n);
+            time(oLi[j], '#fff', n + 1);
+            let right = Number(oLi[j].innerText), left = Number(oLi[min].innerText);
+            if (right < left) {
+                min = j;
+                time(oLi[j], '#f00', n);
+            }
+        }
+        console.log(i,min)
+        if (i !== min) {
+            n++;
+            exchange(n, i, min);
+        }
+
+
+    }
+
+
+    function time(ele, color, time, change) {
+
+        setTimeout(function () {
+            if (change) {
+                change();
+            } else {
+                ele.style.backgroundColor = color;
+            }
+        }, 200 * time);
+    }
+
+    function exchange(time, i, min) {
+        setTimeout(function () {
+            let temp1 = oLi[i];
+            let temp2 = oLi[min];
+            // debugger
+
+            // console.log(oUl.innerHTML)
+            oUl.insertBefore(temp2, oLi[i]);
+
+            // console.log(oUl.innerHTML)
+            oUl.insertBefore(temp1, oLi[min]);
+            console.log(oUl.innerHTML)
+        }, 200 * time);
+
+    }
+
+
+</script>
+</body>
+</html>

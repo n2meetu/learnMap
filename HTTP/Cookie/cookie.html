@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>cookie的基本使用</title>
+    <script src=""></script>
+</head>
+
+<body>
+    <script>
+        // 设置cookie 名字，值，过期时间expires
+        // 日期对象设置过期时间：先get，再set
+        function setCookie(name, value, iDay) {
+            var oDate = new Date();
+            oDate.setDate(oDate.getDate() + iDay);
+
+            document.cookie = name + "=" + value + ";expires=" + oDate;
+        }
+
+        setCookie("username", "zhang", 14);
+        setCookie("password", "123123", 34);
+        alert(document.cookie);
+
+        // 读取cookie
+        function getCookie(name) {  // 比如我要从cookie中查找用户名 name = "username"
+            var cookie = document.cookie;
+            var arr = cookie.split("; ");
+            for (var i = 0; i < arr.length; i++) {
+                var arr2 = arr[i].split("=");
+                if (arr2[0] == name) {
+                    return arr2[1];
+                }
+            }
+            return ' '; //每找到
+        }
+        alert(getCookie("username"));
+
+
+        // cookie的大小和容量都有限，不用的时候请赶紧删掉
+        function removeCookie(name) {
+            setCookie(name, 1, -1); // -1天过期，就是昨天过期。
+        }
+        removeCookie("username");
+        alert(document.cookie);
+    </script>
+</body>
+
+</html>

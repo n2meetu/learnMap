@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点透</title>
+    <style type="text/css">
+        #level0 {
+            /* width: 500px;
+          height: 500px; */
+            position: relative;
+        }
+
+        #level1-0 {
+            position: absolute;
+            z-index: 1;
+            background: red;
+            width: 200px;
+            height: 200px;
+        }
+
+        #level1-1 {
+            background: green;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="level0">
+        <div id="level1-0">
+        </div>
+        <div id="level1-1">
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        var level10 = document.getElementById("level1-0");
+        var level11 = document.getElementById("level1-1");
+
+
+        level10.addEventListener('touchstart', function (e) {
+            level10.style.display = 'none';
+            e.preventDefault();
+        });
+
+        level11.onclick = function () {
+            console.log('下层的绿色div莫名被点击了');
+        }
+
+    </script>
+
+</body>
+
+</html>

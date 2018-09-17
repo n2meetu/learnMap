@@ -1,0 +1,57 @@
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 2.66666667rem;
+            height: 2.66666667rem;
+            background: red;
+        }
+
+        .a{
+            position: relative;
+        }
+
+        .b{
+            position: fixed;
+        }
+
+        .c{
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="a">
+        <div class="b">
+            <div class="c"></div>
+        </div>
+    </div>
+    <div class="box"></div>
+
+    <script>
+        var scale = 1 / window.devicePixelRatio;
+        document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width,initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 10 + 'px';
+    </script>
+    <script>
+        // 动态设置meta标签中content属性
+        // 获取屏幕宽度，设置html标签的font-size大小。
+        var scale = 1/window.devicePixelRatio; // dpr的倒数
+        document.documentElement.style.fontSize=document.documentElement.clientWidth/10 +'px'; 
+        document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width,initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+        
+    </script>
+</body>
+
+</html>
