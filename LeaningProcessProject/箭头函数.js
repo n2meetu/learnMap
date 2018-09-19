@@ -18,6 +18,5 @@ c.show=c=>{
 console.log(c);
 
 // 只返回一个return的时候，大括号也可以省略
-
 let show=d=>d*2;
 console.log(show(2));
