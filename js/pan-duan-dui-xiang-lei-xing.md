@@ -1,0 +1,29 @@
+# 判断对象类型
+
+基本类型：Number，String，Boolean，undefined, null ,symbol 对象类型（引用类型）：Function, Object, Array
+
+区别：嫩不能添加属性和方法；是否通过引用的方式进行比较；
+
+判断数据类型的方法：
+
+```text
+function is(type, obj) {
+    var clas = Object.prototype.toString.call(obj).slice(8, -1);
+    return obj !== undefined && obj !== null && clas === type;
+}
+
+is('String', 'test'); // true
+is('String', new String('test')); // true
+```
+
+| 方法 | 用法 | 不适用 | 应用场景 |
+| :---: | :---: | :---: | :---: |
+| typeof | `typeof xxx` | null和undefined | 检测对象是否已经被赋值 |
+| instanceof | `xxx instanceof XXX` | 检测内置对象的实例 | 判断A对象是不是B类型 |
+| constructor | `xxx.constructor === XXX` | null没有这个属性 |  |
+| Object.prototype.toString.call\(\) |  |  |  |
+
+[参考文章](https://segmentfault.com/a/1190000005174193)
+
+试着自己实现一个 `typeof`方法。 思路: 分两大类进行判断，内置的和飞原生的。其中内置的又分成null,undefined和Number，String，Boolean，function两大类。 不知道对错
+

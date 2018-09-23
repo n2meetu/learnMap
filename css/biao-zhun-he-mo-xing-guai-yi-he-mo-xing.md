@@ -1,0 +1,28 @@
+# 标准盒模型&怪异盒模型
+
+## 1 标准盒模型：
+
+一个块的总宽度：**width = width + 2margin + 2padding + 2\*border**
+
+盒子真正的width = width + 2padding + 2border。 margin不算！margin可以改变盒子占位的大小，但是盒子的宽高并没有改变，而是位置的改变！
+
+### 1.1适用场景：pc端
+
+## 2  怪异盒模型：
+
+一个块的总宽度=width+margin，width已经包含了padding和border值
+
+### 2.1 适用场景：移动端
+
+border-box 非常有用，尤其当我们在使用 100% 来规定宽高的时候，如果元素存在 border 或 padding，将直接导致元素的实际大小大于 100%，
+
+### 2.2 用法：`box-sizing: border-box;`
+
+只需要将盒子的 box-sizing设置为border-box，这是我们发现盒子的大小不在随盒子（内容）的大小而改变，而是必须由盒子自己来控制它的大小。
+
+[一图胜千言](https://codepen.io/singsingasong/pen/LJmLmp?editors=1111) [box-sizing应用场景](https://github.com/Monine/study/issues/9)
+
+### 个人理解：
+
+适用于总宽度不变，需要设置`padding`、`border`的情况下。比如栅格布局，表单元素等
+
