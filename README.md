@@ -1,4 +1,8 @@
-# 前端学习笔记
+---
+description: >-
+  I am Greta Zhang and I am here to share something during my own learning
+  progress of front-end development.
+---
 
 # A learnMap Of a Singing Girl
 
