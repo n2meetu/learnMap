@@ -1,0 +1,162 @@
+# 移动端适配
+
+怎么适配iphone6 1px问题
+
+### 为什么页面与设计稿会出现偏差？
+
+`dpr=设备像素/ css像素`，只有dpr等于1的时候，实际效果和设计稿的尺寸比例才是1:1。
+
+因为iPhone6的DPR（设备像素比）为2，设备像素为750，所以iPhone6的理想视口尺寸为375px。
+
+因为设计稿是基于设备像素，页面是基于css像素的。css中的宽度是基于理想视口的（宽度375px），设计图上是基于设备宽度750px，所以尺寸不对。
+
+**怎么处理？**
+
+`init-scale=0.5` 。 缺陷：但是宽度不能自适应
+
+## ⭐️rem大法
+
+基于`html`标签的`font-size`设置的
+
+### 手淘的做法：
+
+把缩放尺寸设置成dpr的倒数。
+
+读设备宽度，动态设置meta标签的 content属性中的`maximun`,`minimum`,`user-scable`值
+
+```text
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="" />
+    <style>
+    body{
+        margin: 0;
+        padding: 0;
+    }
+    .box{
+        width: 2.66666667rem;
+        height: 2.66666667rem;
+        background: red;
+    }
+    </style>
+</head>
+<body>
+
+    <div class="box"></div>
+
+    <script>
+    var scale = 1 / window.devicePixelRatio;
+    document.querySelector('meta[name="viewport"]').setAttribute('content','width=device-width,initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 10 + 'px';
+    </script>
+</body>
+</html>
+```
+
+### 网易的做法
+
+现在的设计稿都是750px宽度（p6的宽），那要想实现 `css样式：设计图=1：100` 这种比较方便的折算方式，font-size就要设置成7.5px；
+
+也就是说`1rem = 7.5px`
+
+```text
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <style>
+    body{
+        margin: 0;
+        padding: 0;
+    }
+    .box{
+        width: 2rem;
+        height: 2rem;
+        background: red;
+    }
+    </style>
+</head>
+<body>
+
+    <div class="box"></div>
+
+    <script>
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    </script>
+</body>
+</html>
+```
+
+#### 总结
+
+rem是为了实现移动端自适应布局。通过在`html`元素下设置`font-size`定义。
+
+另外，**手淘的做法**是通过判断设备的dpr，将缩放规模scale设置为dpr的倒数，再用js动态设置`meta`标签的`content`属性和font-size基准值的大小。
+
+**网易的做法**是，禁用用户缩放，scale始终为1，将font-size设置为625%，即 1rem=100px。
+
+### 1px问题
+
+如何实现移动端的1px边框
+
+**方法一：transformY:scale\(50%\)**
+
+**方法二：**
+
+```text
+border-width:0 0 2px 0;
+border-image:url("xxx.png") 0 0 2 0 stretch // 图片地址 上下剪切 左右剪切 上下边宽 左右边宽 图片拉伸
+```
+
+## vm/vh+rem大法
+
+vm/vh是未来的趋势
+
+**rem方式弊端：需要动态计算根字体大小**
+
+#### 做法：用vm/vh来计算根字体大小，剩下的自适应布局依旧按照rem的方法
+
+```text
+.wh(@width,@height){
+    width: @width/100rem;
+    height: @height/100rem;
+}
+```
+
+[用vm/vh做适配页面](https://aotu.io/notes/2017/04/28/2017-4-28-CSS-viewport-units/index.html)
+
+### ⭐️关于vm/vh
+
+**1. 与%百分比的区别**
+
+vm/vh 是基于视窗的 %基于父元素
+
+**2. 使用场景**
+
+随着页面不同，文字图片缩小放大（适配页面）
+
+**3. 与rem的区别**
+
+vm/vh没有最大、最小宽大的限制（设备很小的时候，图文会缩得特别特别小……）
+
+**措施：**
+
+1.解决背景过小问题
+
+```text
+body{
+    min-width:xxx px;
+    max-width: xxx px;
+}
+```
+
+2.媒体查询限制根文字大小（解决文字过小问题）
+
+\`\`\`html { font-size: \($vw\_fontsize / \($vw\_design / 2\)\) \* 100vw; // 同时，通过Media Queries 限制根元素最大最小值 @media screen and \(max-width: 320px\) { font-size: 64px; } @media screen and \(min-width: 540px\) { font-size: 108px; } }
+
+\`\`\`
+
