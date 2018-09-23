@@ -1,2 +1,3 @@
 # learnMap
-我的前端学习分享
+I am Greta Zhang and I am here to share something during my own learning progress of front-end development.
+
