@@ -1,5 +1,3 @@
-# 前端学习笔记
-
 # A learnMap Of a Singing Girl
 
 Name: Greta Zhang
