@@ -11,25 +11,7 @@ User.prototype.showPass = function () {
     console.log(this.pass);
 }
 
-function vip(name,pass,level){
-    // 绑定this
-    User.call(this,name,pass);
-
-    // 自己的属性
-    this.level=level;
-}
-
-// prototype指向和constructor指向--prototype指向构造器，它的原型的constructor再指回自己；
-vip.prototype=new User();  // new的过程 新建一个新对象，绑定原型链，绑定this，返回新对象
-vip.prototype.constructor=vip();
-
-vip.prototype.showLevel = function(){  // 为什么要把showlevel放在prototype上面？方便vip的实例对象可以继承
-    return this.level;
-}
-
-
 // ES5 老版本 继承（贼麻烦）
-
 function VipUser(name, pass, level) {
     User.call(this, name, pass);  // 要用call来绑定this
     this.level = level;
