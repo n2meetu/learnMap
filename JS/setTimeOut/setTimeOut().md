@@ -17,9 +17,19 @@ for (var i = 1; i <= 5; i++) {
 #### 想要输出:`1 2 3 4 5`
 
 #### 三种方法：
-1、立即执行函数，为每次循环都声明一个单独的作用域；
-2、将`var`改为`let`，每次都会创建一个块级作用域；
-3、用setTimeOut()的第三个参数直接传参；
+###### 1、立即执行函数，为每次循环都声明一个单独的作用域；
+
+```
+for (var i = 1; i <= 5; i++) {
+    (function(j){
+            setTimeout(function timer() {
+                 console.log(j);
+            }, j * 100);
+    })(i)
+}
+```
+###### 2、将`var`改为`let`，每次都会创建一个块级作用域；
+###### 3、用setTimeOut()的第三个参数直接传参；
 
 [一道关于setTimeOut的题](https://www.jianshu.com/p/b5572d691516)
 
