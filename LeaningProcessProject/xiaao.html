@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <div class="botton-container">
+        <botton class="hog-botton">1</botton>
+        <botton class="hog-botton">2</botton>
+        <botton class="hog-botton">3</botton>
+        <botton class="hog-botton">4</botton>
+    </div>
+
+    <style>
+        .botton-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin: 0 15px
+        }
+
+        .hog-botton {
+            flex: 1 1 auto;
+            min-width: 50px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+            color: #000;
+            background: #cccccc;
+        }
+
+        .hog-botton:last-child {
+            margin-right: 15px;
+        }
+    </style>
+
+    <script>
+        var eles= document.getElementsByClassName('botton-container');
+        var ele = eles[0];
+        Array.prototype.forEach.call(eles, function (ele) {
+            console.log(ele.innerHTML);
+        });
+
+        ele.addEventListener('click', function (e) {
+            if (e.target.flag || e.target.flag === undefined) {
+                e.target.flag = false
+                e.target.style.backgroundColor = '#000'
+                e.target.style.color = '#fff'
+            } else {
+                e.target.flag = true
+                e.target.style.backgroundColor = '#ccc'
+                e.target.style.color = '#000'
+            }
+        })
+
+        
+
+    </script>
+</body>
+
+</html>
